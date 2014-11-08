@@ -5,18 +5,17 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.CursorLoader;
-import android.content.Loader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +25,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +46,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "foo@example.com:hello", "bar@example.com:world", "t@w:twlin"
     };
+
+    private static final String TAG = "PLANNIT";
+    HttpClient client = new DefaultHttpClient();
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -98,6 +107,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
+
         if (mAuthTask != null) {
             return;
         }
@@ -112,7 +122,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         boolean cancel = false;
         View focusView = null;
-
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -263,23 +272,42 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            String setServerString = "";
+
+            try{
+                //Encode
+                //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
+
+                String loginValue = mEmail;
+                Log.v(TAG, mEmail);
+                String newURL = "http://192.241.239.59:8888?" + "user_id=" + loginValue; //Nick made me hardcode LOL
+                Log.v(TAG, newURL);
+                HttpGet httpget = new HttpGet(newURL);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                setServerString = client.execute(httpget, responseHandler);
+                Log.v(TAG, setServerString);
+            }
+            catch (Exception ex){
+                Log.v(TAG, ex.toString());
+            }
+
+            if (setServerString == "-1")
+            {
+                return true;
+            }
+            else {
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            //Do this when server times out if we decide to hardcode
+            /*for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
-                }
-            }
+                }*/
 
             // TODO: register the new account here.
-            return true;
         }
 
         @Override
@@ -303,6 +331,5 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 }
-
 
 
