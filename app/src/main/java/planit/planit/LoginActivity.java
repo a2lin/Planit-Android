@@ -289,6 +289,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
             catch (Exception ex){
                 Log.v(TAG, ex.toString());
+                for (String credential : DUMMY_CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mEmail)) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(mPassword);
+                    }
             }
 
             if (setServerString == "-1")
@@ -299,13 +305,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 return false;
             }
 
-            //Do this when server times out if we decide to hardcode
-            /*for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }*/
+
 
             // TODO: register the new account here.
         }
