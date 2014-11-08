@@ -1,7 +1,6 @@
 package planit.planit;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+
+import java.util.ArrayList;
+
+import planit.planit.event.EventAdapter;
+import planit.planit.event.EventItem;
 
 
 public class EventActivity extends Activity {
@@ -23,6 +28,17 @@ public class EventActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        ArrayList<EventItem> eventData = new ArrayList<EventItem>();
+        eventData.add(new EventItem(3, "hi"));
+        eventData.add(new EventItem(4, "hi"));
+        eventData.add(new EventItem(1, "hi"));
+        eventData.add(new EventItem(2, "hi"));
+        eventData.add(new EventItem(6, "hi"));
+
+
+        EventAdapter ea = new EventAdapter(this, R.layout.event_row_item, eventData);
+        ((DynamicListView)findViewById(R.id.dynamiclistview)).setAdapter(ea);
     }
 
 
@@ -46,14 +62,16 @@ public class EventActivity extends Activity {
         }
 
         if (id == R.id.action_compose){
-            return true;
+            add_edit_to_listview();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void add_edit_to_listview(){
-
+        EventAdapter ea = (EventAdapter)((DynamicListView)findViewById(R.id.dynamiclistview)).getAdapter();
+        EventItem ei = new EventItem(5, "yolo");
+        ea.add(ei);
     }
 
     /**
