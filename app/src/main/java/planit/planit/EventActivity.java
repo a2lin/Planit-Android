@@ -30,7 +30,7 @@ public class EventActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -41,11 +41,19 @@ public class EventActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            return true;
+        }
+
+        if (id == R.id.action_compose){
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void add_edit_to_listview(){
+
     }
 
     /**

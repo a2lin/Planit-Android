@@ -7,14 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <Button android:id="@+id/btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="My Button"
-            android:alignParentTop = "true"/>
-
         <ListView android:id="@+id/myList"
-            android:layout_below="@id/btn"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
 
