@@ -8,5 +8,6 @@
     <string name="title_activity_event">Plannit</string>
     <string name="action_search">Search</string>
     <string name="action_compose">Compose</string>
+    <string name="eventDescr">Events</string>
 
 </resources>

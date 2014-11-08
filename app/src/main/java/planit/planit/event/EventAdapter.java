@@ -6,8 +6,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.nhaarman.listviewanimations.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -24,11 +25,21 @@ public class EventAdapter extends ArrayAdapter<EventItem> {
 
     public EventAdapter(Context mContext, int layoutResourceId, ArrayList<EventItem> data) {
 
-        super(mContext, layoutResourceId, data);
+        super(data);
 
         this.layoutResourceId = layoutResourceId;
         this.mContext = mContext;
         this.data = data;
+    }
+
+    @Override
+    public long getItemId(final int position) {
+        return data.get(position).eventID;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
     }
 
     @Override
@@ -46,7 +57,6 @@ public class EventAdapter extends ArrayAdapter<EventItem> {
         // get the TextView and then set the text (item name) and tag (item ID) values
         TextView textViewItem = (TextView) convertView.findViewById(R.id.eventItem);
         textViewItem.setText(eventItem.eventName);
-        textViewItem.setTag(eventItem.eventID);
 
         return convertView;
 
