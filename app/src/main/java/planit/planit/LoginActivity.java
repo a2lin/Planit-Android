@@ -284,34 +284,30 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 //Encode
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
-                String loginValue = mEmail;
                 Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888?" + "user_id=" + loginValue; //Nick made me hardcode LOL
+                String newURL = "http://192.241.239.59:8888/" + "login_user?" + "email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
                 Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 setServerString = client.execute(httpget, responseHandler);
-                Log.v(TAG, setServerString);
+
+                //Debug
+                //Log.v(TAG, setServerString);
             }
             catch (Exception ex){
                 Log.v(TAG, ex.toString());
+
+                //Do this when server times out if we decide to hardcode
+                for (String credential : DUMMY_CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mEmail)) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(mPassword);
+                    }
+                }
             }
 
-            if (setServerString == "-1")
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
-
-            //Do this when server times out if we decide to hardcode
-            /*for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }*/
+            return setServerString.equals("1");
 
             // TODO: register the new account here.
         }
@@ -322,7 +318,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -337,5 +333,3 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 }
-
-
