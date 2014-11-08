@@ -276,7 +276,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             String setServerString = "";
 
@@ -320,8 +319,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("loggedInUser", mEmail);
                 startActivity(intent);
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
