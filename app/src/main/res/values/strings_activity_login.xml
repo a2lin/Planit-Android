@@ -12,5 +12,6 @@
     <string name="error_field_required">This field is required</string>
     <string name="slogan_value">Plannit</string>
     <color name="sky_blue">#FF0079FF</color>
+    <color name="light_gray">#FFFBFF</color>
 
 </resources>
