@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style
+        name="login_button"
+        parent="@android:style/Widget.Holo.Light.Button.Borderless.Small">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@color/sky_blue</item>
+    </style>
+</resources>
