@@ -7,9 +7,18 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <ListView android:id="@+id/myList"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventDescription"
+            android:text="@string/eventDescr"
+            android:textSize="25dp"/>
+
+        <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
+            android:id="@+id/dynamiclistview"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:layout_below="@id/eventDescription"/>
 
     </RelativeLayout>
 </FrameLayout>

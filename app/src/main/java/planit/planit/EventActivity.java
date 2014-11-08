@@ -1,19 +1,31 @@
 package planit.planit;
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+import com.nhaarman.listviewanimations.itemmanipulation.animateaddition.AnimateAdditionAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
+
+import java.util.ArrayList;
+
+import planit.planit.event.EventAdapter;
+import planit.planit.event.EventItem;
+import planit.planit.vendor.TypefaceSpan;
 
 
 public class EventActivity extends Activity {
-
+    int counter = 6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +35,28 @@ public class EventActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        SpannableString s = new SpannableString("Plannit");
+        s.setSpan(new TypefaceSpan(this, "ShadowsIntoLight.ttf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+// Update the action bar title with the TypefaceSpan instance
+        ActionBar actionBar = getActionBar();
+        actionBar.setTitle(s);
+        ArrayList<EventItem> eventData = new ArrayList<EventItem>();
+        eventData.add(new EventItem(3, "hi"));
+        eventData.add(new EventItem(4, "hi"));
+        eventData.add(new EventItem(1, "hi"));
+        eventData.add(new EventItem(2, "hi"));
+        eventData.add(new EventItem(6, "hi"));
+
+
+        EventAdapter ea = new EventAdapter(this, R.layout.event_row_item, eventData);
+        AlphaInAnimationAdapter aa = new AlphaInAnimationAdapter(ea);
+        aa.setAbsListView((DynamicListView)findViewById(R.id.dynamiclistview));
+        ((DynamicListView)findViewById(R.id.dynamiclistview)).setAdapter(ea);
+
+        ((DynamicListView)findViewById(R.id.dynamiclistview)).enableDragAndDrop();
+        ((DynamicListView)findViewById(R.id.dynamiclistview)).setDraggableManager(new TouchViewDraggableManager(R.id.eventItem));
     }
 
 
@@ -46,14 +80,16 @@ public class EventActivity extends Activity {
         }
 
         if (id == R.id.action_compose){
-            return true;
+            add_edit_to_listview();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void add_edit_to_listview(){
-
+        AnimateAdditionAdapter<EventItem> ea = (AnimateAdditionAdapter<EventItem>)((DynamicListView)findViewById(R.id.dynamiclistview)).getAdapter();
+        EventItem ei = new EventItem(++counter, "yolo");
+        ea.add(0,ei);
     }
 
     /**
