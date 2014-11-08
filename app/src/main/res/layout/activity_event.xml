@@ -12,7 +12,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/eventDescription"
             android:text="@string/eventDescr"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:gravity="center"/>
 
         <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
             android:id="@+id/dynamiclistview"
