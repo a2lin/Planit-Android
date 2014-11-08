@@ -11,6 +11,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -94,6 +95,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/ShadowsIntoLight.ttf");
+        TextView tv = (TextView) findViewById(R.id.slogan);
+        tv.setTypeface(tf);
+        getActionBar().hide();
     }
 
     private void populateAutoComplete() {
