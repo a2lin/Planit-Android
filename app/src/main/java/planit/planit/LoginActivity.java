@@ -9,13 +9,12 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -129,23 +128,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
+//        // Check for a valid password, if the user entered one.
+//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+//            mPasswordView.setError(getString(R.string.error_invalid_password));
+//            focusView = mPasswordView;
+//            cancel = true;
+//        }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
+//        if (TextUtils.isEmpty(email)) {
+//            mEmailView.setError(getString(R.string.error_field_required));
+//            focusView = mEmailView;
+//            cancel = true;
+//        } else if (!isEmailValid(email)) {
+//            mEmailView.setError(getString(R.string.error_invalid_email));
+//            focusView = mEmailView;
+//            cancel = true;
+//        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -160,15 +159,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
+//    private boolean isEmailValid(String email) {
+//        //TODO: Replace this with your own logic
+//        return email.contains("@");
+//    }
+//
+//    private boolean isPasswordValid(String password) {
+//        //TODO: Replace this with your own logic
+//        return password.length() > 4;
+//    }
 
     /**
      * Shows the progress UI and hides the login form.
@@ -283,13 +282,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 //Encode
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
-                //Log.v(TAG, mEmail);
+                Log.v(TAG, mEmail);
                 String newURL = "http://192.241.239.59:8888/" + "login_user?email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
-                //Log.v(TAG, newURL);
+                Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 setServerString = client.execute(httpget, responseHandler);
-                //Log.v(TAG, setServerString);
+                Log.v(TAG, setServerString);
             }
             catch (Exception ex) {
                 Log.v(TAG, ex.toString());
@@ -302,7 +301,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }
 
-            if (setServerString.equals("-1"))
+            if (setServerString.equals("1"))
             {
                 return true;
             }
