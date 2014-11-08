@@ -3,12 +3,14 @@ package planit.planit.event;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nhaarman.listviewanimations.ArrayAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ import planit.planit.R;
 /**
  * Created by alexanderlin on 11/8/14.
  */
-public class EventAdapter extends ArrayAdapter<EventItem> {
+public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
 
     Context mContext;
     int layoutResourceId;
@@ -25,7 +27,7 @@ public class EventAdapter extends ArrayAdapter<EventItem> {
 
     public EventAdapter(Context mContext, int layoutResourceId, ArrayList<EventItem> data) {
 
-        super(data);
+       super(mContext, R.id.dynamiclistview, R.id.top, R.id.bottom, data);
 
         this.layoutResourceId = layoutResourceId;
         this.mContext = mContext;
@@ -60,6 +62,28 @@ public class EventAdapter extends ArrayAdapter<EventItem> {
 
         return convertView;
 
+    }
+
+    @NonNull
+    @Override
+    public View getTitleView(int i, @Nullable View view, @NonNull ViewGroup viewGroup) {
+        TextView tv = (TextView) view;
+        if (tv == null) {
+            tv = new TextView(mContext);
+        }
+        tv.setText(getItem(i).eventName);
+        return tv;
+    }
+
+    @NonNull
+    @Override
+    public View getContentView(int i, @Nullable View view, @NonNull ViewGroup viewGroup) {
+        TextView tv = (TextView) view;
+        if (tv == null) {
+            tv = new TextView(mContext);
+        }
+        tv.setText(getItem(i).eventName+"yolo");
+        return tv;
     }
 
 }
