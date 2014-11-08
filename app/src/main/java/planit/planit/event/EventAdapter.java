@@ -27,7 +27,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
 
     public EventAdapter(Context mContext, int layoutResourceId, ArrayList<EventItem> data) {
 
-       super(mContext, R.id.dynamiclistview, R.id.top, R.id.bottom, data);
+       super(mContext, data);
 
         this.layoutResourceId = layoutResourceId;
         this.mContext = mContext;
@@ -43,7 +43,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
     public boolean hasStableIds() {
         return true;
     }
-
+/*
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -63,27 +63,33 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         return convertView;
 
     }
-
+*/
     @NonNull
     @Override
     public View getTitleView(int i, @Nullable View view, @NonNull ViewGroup viewGroup) {
-        TextView tv = (TextView) view;
-        if (tv == null) {
-            tv = new TextView(mContext);
+        if (view == null) {
+            LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+            view = inflater.inflate(layoutResourceId, viewGroup, false);
         }
-        tv.setText(getItem(i).eventName);
-        return tv;
+        EventItem eventItem = data.get(i);
+        TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
+        textViewItem.setText(eventItem.eventName);
+
+        return view;
     }
 
     @NonNull
     @Override
     public View getContentView(int i, @Nullable View view, @NonNull ViewGroup viewGroup) {
-        TextView tv = (TextView) view;
-        if (tv == null) {
-            tv = new TextView(mContext);
+        if (view == null) {
+            LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+            view = inflater.inflate(layoutResourceId, viewGroup, false);
         }
-        tv.setText(getItem(i).eventName+"yolo");
-        return tv;
+        EventItem eventItem = data.get(i);
+        TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
+        textViewItem.setText(eventItem.eventName);
+
+        return view;
     }
 
 }
