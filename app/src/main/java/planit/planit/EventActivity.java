@@ -198,6 +198,7 @@ public class EventActivity extends Activity {
 
             if (success) {
                 try{
+                    Log.v("WTF", eventData.toString());
                     EventAdapter ea = new EventAdapter(ctx, R.layout.event_row_item, eventData);
                     AlphaInAnimationAdapter aa = new AlphaInAnimationAdapter(ea);
                     aa.setAbsListView((DynamicListView) findViewById(R.id.dynamiclistview));
@@ -252,11 +253,7 @@ public class EventActivity extends Activity {
                 Log.v(TAG, ex.toString());
             }
 
-            if (!setServerString.equals("-1")) {
-                return true;
-            } else {
-                return false;
-            }
+            return !setServerString.equals("-1");
         }
 
         @Override

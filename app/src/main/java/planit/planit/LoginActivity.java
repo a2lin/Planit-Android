@@ -317,7 +317,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
                 intent.putExtra("loggedInUser", mEmail);
                 startActivity(intent);
 
