@@ -2,6 +2,7 @@ package planit.planit;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -31,9 +32,8 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
     private StaggeredGridView mGridView;
     private boolean mHasRequestedMore;
     private FriendAdapter mAdapter;
-    private int savedScrollState = 0;
     private ArrayList<FriendItem> mData;
-
+    private ArrayList<Integer> nctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +45,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
         View header = layoutInflater.inflate(R.layout.friend_header_footer, null);
         View footer = layoutInflater.inflate(R.layout.friend_header_footer, null);
         TextView txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
-        TextView txtFooterTitle =  (TextView) footer.findViewById(R.id.txt_title);
-        txtHeaderTitle.setText("THE HEADER!");
-        txtFooterTitle.setText("THE FOOTER!");
+        txtHeaderTitle.setText("Friends List");
 
         SpannableString s = new SpannableString("Plannit");
         s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),
@@ -64,15 +62,21 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
         if (mData == null) {
             mData = new ArrayList<FriendItem>();
-            mData.add(new FriendItem(0, "hi", "yoyo"));
-            mData.add(new FriendItem(1, "hi", "yoyo"));
-            mData.add(new FriendItem(2, "hi", "yoyo"));
-            mData.add(new FriendItem(3, "hi", "yoyo"));
-            mData.add(new FriendItem(3, "hi", "yoyo"));
-            mData.add(new FriendItem(3, "hi", "yoyo"));
-            mData.add(new FriendItem(3, "hi", "yoyo"));
-
-
+            nctx = new ArrayList<Integer>();
+            mData.add(new FriendItem(0, "hi", "http://i.imgur.com/nBoIRaJ.jpg"));
+            nctx.add(0);
+            mData.add(new FriendItem(1, "hi", "http://i.imgur.com/mCGDR69.jpg"));
+            nctx.add(0);
+            mData.add(new FriendItem(2, "hi", "http://i.imgur.com/VwLNu.jpg"));
+            nctx.add(0);
+            mData.add(new FriendItem(3, "hi", "http://i.imgur.com/NSL24Vt.jpg"));
+            nctx.add(0);
+            mData.add(new FriendItem(3, "hi", "http://i.imgur.com/uAdkZjL.jpg"));
+            nctx.add(0);
+            mData.add(new FriendItem(3, "hi", "http://i.imgur.com/DvpvklR.png"));
+            nctx.add(0);
+            mData.add(new FriendItem(3, "hi", "http://i.imgur.com/EvYLq.jpg"));
+            nctx.add(0);
         }
 
         for (FriendItem data : mData) {
@@ -126,6 +130,19 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+        adapterView.getItemAtPosition(position);
+        if(view.getTag() != null)
+        {
+            FriendAdapter.ViewHolder vh = (FriendAdapter.ViewHolder) view.getTag();
+            if (nctx.get(position)%2 == 0) {
+                vh.txtLineTwo.setBackgroundColor(Color.rgb(0, 158, 96));
+                nctx.set(position, nctx.get(position)+1);
+            }
+            else {
+                vh.txtLineTwo.setBackgroundColor(Color.rgb(0, 121, 255));
+                nctx.set(position, nctx.get(position)+1);
+            }
+        }
     }
 
     @Override

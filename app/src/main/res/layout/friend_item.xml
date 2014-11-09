@@ -7,12 +7,23 @@
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants">
 
-    <com.etsy.android.grid.util.DynamicHeightTextView
+    <com.etsy.android.grid.util.DynamicHeightImageView
         android:id="@+id/txt_line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:gravity="center"/>
+
+    <com.etsy.android.grid.util.DynamicHeightTextView
+        android:id="@+id/txt_line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:text="hiiiiiiii"
+        android:background="@color/sky_blue"
+        android:layout_gravity="bottom" />
 
 
 
