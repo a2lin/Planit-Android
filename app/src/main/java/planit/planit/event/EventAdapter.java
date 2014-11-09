@@ -77,6 +77,10 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
         textViewItem.setText(eventItem.title);
         ImageView imgV = (ImageView) view.findViewById(R.id.eventImage);
+        if(eventItem.image == null || eventItem.image.equals(""))
+        {
+            eventItem.image="http://i.imgur.com/QmuBSqb.jpg";
+        }
         Picasso.with(mContext).load(eventItem.image).resize(100,100).centerCrop().into(imgV);
 
         return view;

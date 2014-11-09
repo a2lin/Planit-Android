@@ -89,6 +89,10 @@ public class EventActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        Bundle b = getIntent().getExtras();
+        if(b != null) {
+            b.getString("loggedInUser");
+        }
         GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
         getRequest.execute((Void) null);
     }

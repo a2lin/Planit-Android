@@ -123,8 +123,18 @@ public class CreateEvent extends Activity {
 
     public void add_edit_to_listview() {
 
-        postShit = new PostRequest(mTitle, mDescription, mLocation, mTime, loggedInUser);
+        String tempUser = loggedInUser;
+        if (attendees != null) {
+            for(String s : attendees)
+            {
+                tempUser += "___" + s;
+            }
+        }
+        Log.v("WADDAFAK", tempUser);
+        postShit = new PostRequest(mTitle, mDescription, mLocation, mTime, tempUser);
         postShit.execute((Void) null);
+
+
 
         //AnimateAdditionAdapter<EventItem> ea = (AnimateAdditionAdapter<EventItem>) ((DynamicListView) findViewById(R.id.dynamiclistview)).getAdapter();
         //EventItem ei = new EventItem(event_hash, mTitle, mDescription, mTime, mLocation, loggedInUser, image_path);
@@ -197,7 +207,7 @@ public class CreateEvent extends Activity {
 
                 //Log.v(TAG, mEmail);
                 String newURL = "http://54.68.34.231:8888/" + "create_event?title=" + mTitle + "&description=" + mDescription + "&location=" + mLocation + "&time=" + mTime + "&creator=" + mCreator; //Nick made me hardcode LOL
-                //Log.v(TAG, newURL);
+                Log.v("WADDAFAKO", newURL);
                 HttpPost httppost = new HttpPost(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 event_hash = client.execute(httppost, responseHandler);
