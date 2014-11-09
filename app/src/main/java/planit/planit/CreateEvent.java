@@ -14,23 +14,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.nhaarman.listviewanimations.itemmanipulation.animateaddition.AnimateAdditionAdapter;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import planit.planit.event.EventItem;
+import java.util.ArrayList;
+
 import planit.planit.vendor.TypefaceSpan;
 
 
 public class CreateEvent extends Activity {
 
     private static final String TAG = "PLANNIT";
-    private String loggedInUser = "";
+    protected String loggedInUser = "";
     private PostRequest postShit = null;
     public HttpClient client = new DefaultHttpClient();
     private String mTitle = "";
@@ -44,12 +42,16 @@ public class CreateEvent extends Activity {
     private EditText mLocationView;
     private String event_hash;
     private String image_path;
+    private ArrayList<String> attendees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-
+        Bundle b = getIntent().getExtras();
+        if(b!= null) {
+            this.loggedInUser = b.getString("loggedInUser");
+        }
         // Set up the Event form.
         mTitleView = (EditText) findViewById(R.id.title);
         mDescriptionView = (EditText) findViewById(R.id.description);
@@ -62,14 +64,6 @@ public class CreateEvent extends Activity {
             public void onClick(View view) {
                 createEvent();
             }
-
-            //Alex please fix this UI stuff on the next few lines
-//            SpannableString s = new SpannableString("Plannit");
-//            s.setSpan(new TypefaceSpan(this,"ArchitectsDaughter.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//            ActionBar actionBar = getActionBar();
-//            actionBar.setTitle(s);
-
         });
         SpannableString s = new SpannableString("Plannit");
         s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),
@@ -78,8 +72,36 @@ public class CreateEvent extends Activity {
 // Update the action bar title with the TypefaceSpan instance
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(s);
+
+
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Bundle extras = getIntent().getExtras();
+        if(extras.getString("title") != null)
+        {
+            mTitleView.setText(extras.getString("title"));
+        }
+        if(extras.getString("description") != null)
+        {
+            mDescriptionView.setText(extras.getString("description"));
+        }
+        if(extras.getString("time") != null)
+        {
+            mTimeView.setText(extras.getString("time"));
+        }
+        if(extras.getString("location") != null)
+        {
+            mLocationView.setText(extras.getString("location"));
+        }
+        if(extras.getStringArrayList("list") != null)
+        {
+            this.attendees = extras.getStringArrayList("list");
+        }
+    }
 
     public void createEvent()
     {
@@ -104,11 +126,11 @@ public class CreateEvent extends Activity {
         postShit = new PostRequest(mTitle, mDescription, mLocation, mTime, loggedInUser);
         postShit.execute((Void) null);
 
-        AnimateAdditionAdapter<EventItem> ea = (AnimateAdditionAdapter<EventItem>) ((DynamicListView) findViewById(R.id.dynamiclistview)).getAdapter();
-        EventItem ei = new EventItem(event_hash, mTitle, mDescription, mTime, mLocation, loggedInUser, image_path);
+        //AnimateAdditionAdapter<EventItem> ea = (AnimateAdditionAdapter<EventItem>) ((DynamicListView) findViewById(R.id.dynamiclistview)).getAdapter();
+        //EventItem ei = new EventItem(event_hash, mTitle, mDescription, mTime, mLocation, loggedInUser, image_path);
 
         //Does adding it this way actually work?
-        ea.add(0, ei);
+        //ea.add(0, ei);
     }
 
     @Override
@@ -138,8 +160,6 @@ public class CreateEvent extends Activity {
 
         if (id == R.id.action_add_friends) {
             Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
-
-            // Put the logged in user for good practice
             intent.putExtra("loggedInUser", loggedInUser);
 
             // add a tidbit to disable the check mark view if not on adding friends path
@@ -149,6 +169,7 @@ public class CreateEvent extends Activity {
             intent.putExtra("time", mTimeView.getText().toString());
             intent.putExtra("location", mLocationView.getText().toString());
             intent.putExtra("description", mDescriptionView.getText().toString());
+            intent.putExtra("title", mTitleView.getText().toString());
             startActivity(intent);
         }
 
@@ -175,12 +196,12 @@ public class CreateEvent extends Activity {
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                 //Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888/" + "create_event?title=" + mTitle + "&description:" + mDescription + "&location" + mLocation + "&time" + mTime + "&creator" + mCreator; //Nick made me hardcode LOL
+                String newURL = "http://54.68.34.231:8888/" + "create_event?title=" + mTitle + "&description=" + mDescription + "&location=" + mLocation + "&time=" + mTime + "&creator=" + mCreator; //Nick made me hardcode LOL
                 //Log.v(TAG, newURL);
                 HttpPost httppost = new HttpPost(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 event_hash = client.execute(httppost, responseHandler);
-                //Log.v(TAG, setServerString);
+                Log.v("WADDAFAK", newURL);
 
             } catch (Exception ex) {
                 Log.v(TAG, ex.toString());

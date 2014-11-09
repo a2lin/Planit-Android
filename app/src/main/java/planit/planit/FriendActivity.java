@@ -147,6 +147,18 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
                 intent.putExtra("time", extras.getString("time"));
                 intent.putExtra("location", extras.getString("location"));
                 intent.putExtra("description", extras.getString("description"));
+                intent.putExtra("title", extras.getString("title"));
+                ArrayList<String> inviteEmails = new ArrayList<String>();
+
+                for(int i = 1; i < nctx.size();i++)
+                {
+                    if(nctx.get(i) % 2 == 1)
+                    {
+                        inviteEmails.add(mAdapter.getItem(i-1).email);
+                    }
+                }
+
+                intent.putStringArrayListExtra("list",inviteEmails);
                 startActivity(intent);
             }
             return true;
