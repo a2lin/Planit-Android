@@ -1,7 +1,6 @@
 package planit.planit;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -22,9 +21,10 @@ import java.util.ArrayList;
 
 import planit.planit.friends.FriendAdapter;
 import planit.planit.friends.FriendItem;
+import planit.planit.vendor.BaseActivity;
 import planit.planit.vendor.TypefaceSpan;
 
-public class FriendActivity extends Activity implements AbsListView.OnScrollListener, AbsListView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class FriendActivity extends BaseActivity implements AbsListView.OnScrollListener, AbsListView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "StaggeredGridActivity";
     public static final String SAVED_DATA_KEY = "SAVED_DATA";

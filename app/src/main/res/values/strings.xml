@@ -9,5 +9,12 @@
     <string name="action_search">Search</string>
     <string name="action_compose">Compose</string>
     <string name="eventDescr">Events</string>
+    <string name="menu">Navigation</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer closed</string>
+    <string-array name="screens_array">
+        <item>Friends</item>
+        <item>Events</item>
+    </string-array>
 
 </resources>
