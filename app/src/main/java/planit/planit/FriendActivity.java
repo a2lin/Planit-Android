@@ -77,6 +77,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
             nctx.add(0);
             mData.add(new FriendItem(3, "hi", "http://i.imgur.com/EvYLq.jpg"));
             nctx.add(0);
+            nctx.add(0);
         }
 
         for (FriendItem data : mData) {
@@ -133,14 +134,16 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
         adapterView.getItemAtPosition(position);
         if(view.getTag() != null)
         {
-            FriendAdapter.ViewHolder vh = (FriendAdapter.ViewHolder) view.getTag();
-            if (nctx.get(position)%2 == 0) {
-                vh.txtLineTwo.setBackgroundColor(Color.rgb(0, 158, 96));
-                nctx.set(position, nctx.get(position)+1);
-            }
-            else {
-                vh.txtLineTwo.setBackgroundColor(Color.rgb(0, 121, 255));
-                nctx.set(position, nctx.get(position)+1);
+            if(position < nctx.size()) {
+                FriendAdapter.ViewHolder vh = (FriendAdapter.ViewHolder) view.getTag();
+
+                if (nctx.get(position) % 2 == 0) {
+                    vh.txtLineTwo.setBackgroundColor(Color.rgb(0, 158, 96));
+                    nctx.set(position, nctx.get(position) + 1);
+                } else {
+                    vh.txtLineTwo.setBackgroundColor(Color.rgb(0, 121, 255));
+                    nctx.set(position, nctx.get(position) + 1);
+                }
             }
         }
     }
