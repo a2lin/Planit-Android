@@ -39,6 +39,7 @@ public class CreateEvent extends Activity {
     private EditText mTimeView;
     private EditText mLocationView;
     private String event_hash;
+    private String image_path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class CreateEvent extends Activity {
         mDescriptionView = (EditText) findViewById(R.id.description);
         mTimeView = (EditText) findViewById(R.id.time);
         mLocationView = (EditText) findViewById(R.id.location);
-
+        image_path = "";
         Button timButton = (Button) findViewById(R.id.timbutton);
         timButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +94,7 @@ public class CreateEvent extends Activity {
         postShit.execute((Void) null);
 
         AnimateAdditionAdapter<EventItem> ea = (AnimateAdditionAdapter<EventItem>) ((DynamicListView) findViewById(R.id.dynamiclistview)).getAdapter();
-        EventItem ei = new EventItem(event_hash, mTitle, mDescription, mTime, mLocation, loggedInUser);
+        EventItem ei = new EventItem(event_hash, mTitle, mDescription, mTime, mLocation, loggedInUser, image_path);
 
         //Does adding it this way actually work?
         ea.add(0, ei);

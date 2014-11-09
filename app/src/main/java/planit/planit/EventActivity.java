@@ -105,7 +105,8 @@ public class EventActivity extends Activity {
             String time = arr.getJSONObject(i).getString("time");
             String location = arr.getJSONObject(i).getString("location");
             String creator = arr.getJSONObject(i).getString("creator");
-            eventData.add(new EventItem(eventHash, title, description, time, location, creator));
+            String image = arr.getJSONObject(i).getString("image_path");
+            eventData.add(new EventItem(eventHash, title, description, time, location, creator, image));
         }
         return eventData;
     }

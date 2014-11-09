@@ -10,8 +10,9 @@ public class EventItem {
     public String time;
     public String location;
     public String creator;
+    public String image;
 
-    public EventItem(String eventHash, String title, String description, String time, String location, String creator)
+    public EventItem(String eventHash, String title, String description, String time, String location, String creator, String image)
     {
         this.eventHash = eventHash;
         this.title = title;
@@ -19,5 +20,6 @@ public class EventItem {
         this.time = time;
         this.location = location;
         this.creator = creator;
+        this.image = image;
     }
 }

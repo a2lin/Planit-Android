@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -74,7 +76,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         EventItem eventItem = data.get(i);
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
         textViewItem.setText(eventItem.title);
-        
+
 
         return view;
     }
@@ -89,6 +91,8 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         EventItem eventItem = data.get(i);
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
         textViewItem.setText(eventItem.title);
+        ImageView imgV = (ImageView) view.findViewById(R.id.eventImage);
+        Picasso.with(mContext).load(eventItem.image).resize(50,50).centerCrop().into(imgV);
 
         return view;
     }
