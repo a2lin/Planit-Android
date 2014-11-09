@@ -3,7 +3,6 @@ package planit.planit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -34,11 +33,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import planit.planit.vendor.BaseActivity;
+
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * A dummy authentication store containing known user names and passwords.

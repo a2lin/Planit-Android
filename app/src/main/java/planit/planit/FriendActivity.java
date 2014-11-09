@@ -34,6 +34,7 @@ public class FriendActivity extends BaseActivity implements AbsListView.OnScroll
     private FriendAdapter mAdapter;
     private ArrayList<FriendItem> mData;
     private ArrayList<Integer> nctx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
