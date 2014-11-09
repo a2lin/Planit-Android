@@ -60,7 +60,7 @@ public class EventActivity extends Activity {
         }
 
         SpannableString s = new SpannableString("Plannit");
-        s.setSpan(new TypefaceSpan(this, "ShadowsIntoLight.ttf"), 0, s.length(),
+        s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 // Update the action bar title with the TypefaceSpan instance
@@ -74,9 +74,6 @@ public class EventActivity extends Activity {
 //        eventData.add(new EventItem(1, "hi"));
 //        eventData.add(new EventItem(2, "hi"));
 //        eventData.add(new EventItem(6, "hi"));
-
-
-
     }
 
 
