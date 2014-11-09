@@ -17,25 +17,25 @@
 
     <EditText android:id="@+id/title"
         android:layout_height="wrap_content"
-        android:text="title"
+        android:hint="title"
         android:layout_width="match_parent"
         android:layout_below="@id/textview"/>
 
     <EditText android:id="@+id/description"
         android:layout_height="wrap_content"
-        android:text="description"
+        android:hint="description"
         android:layout_width="match_parent"
         android:layout_below="@id/title"/>
 
     <EditText android:id="@+id/time"
         android:layout_height="wrap_content"
-        android:text="time"
+        android:hint="time"
         android:layout_width="match_parent"
         android:layout_below="@id/description"/>
 
     <EditText android:id="@+id/location"
         android:layout_height="wrap_content"
-        android:text="location"
+        android:hint="location"
         android:layout_width="match_parent"
         android:layout_below="@id/time"/>
 
