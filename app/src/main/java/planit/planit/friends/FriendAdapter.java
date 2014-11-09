@@ -71,7 +71,7 @@ public class FriendAdapter extends ArrayAdapter<FriendItem> {
 
         vh.txtLineOne.setHeightRatio(positionHeight);
         Picasso.with(ctx).load(getItem(position).imgURI).resize(200, 200 ).placeholder(R.drawable.plannit).into(vh.txtLineOne);
-
+        vh.txtLineTwo.setText(getItem(position).friendName);
         return convertView;
     }
 

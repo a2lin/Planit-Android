@@ -78,6 +78,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
         mGridView.addHeaderView(header);
         mGridView.addFooterView(footer);
         mAdapter = new FriendAdapter(this, R.id.friend_grid_view);
+        nctx = new ArrayList<Integer>();
 
 
 //        if (mData == null) {
@@ -205,6 +206,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
                     //Log.v(TAG, mEmail);
                     String newURL = "http://192.241.239.59:8888/" + "get_friends?email=" + mEmail; //Nick made me hardcode LOL
+                    Log.v(TAG, mEmail);
                     //Log.v(TAG, newURL);
                     HttpGet httpget = new HttpGet(newURL);
                     ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -214,11 +216,11 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
                     try {
                         friendData = jsonParser(friendDict);
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
 
                 } catch (Exception ex) {
-                    Log.v(TAG, ex.toString());
+                    //Log.v(TAG, ex.toString());
                 }
 
                 if (!friendDict.equals(null)) {
@@ -246,7 +248,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
                        // ((DynamicHeightTextView) findViewById(R.id.txt_line2)).setText();
                     }
                     catch (Exception e) {
-                        Log.v(TAG, e.toString());
+                        //Log.v(TAG, e.toString());
                     }
                 }
 
