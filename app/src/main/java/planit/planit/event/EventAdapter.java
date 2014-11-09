@@ -36,7 +36,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
 
     @Override
     public long getItemId(final int position) {
-        return data.get(position).eventID;
+        return Long.parseLong(data.get(position).eventHash);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         }
         EventItem eventItem = data.get(i);
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
-        textViewItem.setText(eventItem.eventName);
+        textViewItem.setText(eventItem.title);
 
         return view;
     }
@@ -87,7 +87,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         }
         EventItem eventItem = data.get(i);
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
-        textViewItem.setText(eventItem.eventName);
+        textViewItem.setText(eventItem.title);
 
         return view;
     }

@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -282,16 +281,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 //Encode
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
-                Log.v(TAG, mEmail);
+                //Log.v(TAG, mEmail);
                 String newURL = "http://192.241.239.59:8888/" + "login_user?email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
-                Log.v(TAG, newURL);
+                //Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 setServerString = client.execute(httpget, responseHandler);
-                Log.v(TAG, setServerString);
+                //Log.v(TAG, setServerString);
             }
             catch (Exception ex) {
-                Log.v(TAG, ex.toString());
+                //Log.v(TAG, ex.toString());
                 for (String credential : DUMMY_CREDENTIALS) {
                     String[] pieces = credential.split(":");
                     if (pieces[0].equals(mEmail)) {

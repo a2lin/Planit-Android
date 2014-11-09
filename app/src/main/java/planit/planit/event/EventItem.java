@@ -4,12 +4,20 @@ package planit.planit.event;
  * Created by alexanderlin on 11/8/14.
  */
 public class EventItem {
-    public int eventID;
-    public String eventName;
+    public String eventHash;
+    public String title;
+    public String description;
+    public String time;
+    public String location;
+    public String creator;
 
-    public EventItem(int eventID, String eventName)
+    public EventItem(String eventHash, String title, String description, String time, String location, String creator)
     {
-        this.eventID = eventID;
-        this.eventName = eventName;
+        this.eventHash = eventHash;
+        this.title = title;
+        this.description = description;
+        this.time = time;
+        this.location = location;
+        this.creator = creator;
     }
 }
