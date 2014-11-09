@@ -99,6 +99,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         TextView tv = (TextView) findViewById(R.id.slogan);
         tv.setTypeface(tf);
         getActionBar().hide();
+
+        Typeface tf2 = Typeface.createFromAsset(getAssets(),
+                    "fonts/ArchitectsDaughter.ttf");
+        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.email);
+        actv.setTypeface(tf);
+
+        EditText et = (EditText) findViewById(R.id.password);
+        et.setTypeface(tf);
+
     }
 
     private void populateAutoComplete() {

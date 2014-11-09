@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -67,6 +68,9 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
         View footer = layoutInflater.inflate(R.layout.friend_header_footer, null);
         TextView txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
         txtHeaderTitle.setText("Friends List");
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/ShadowsIntoLight.ttf");
+        txtHeaderTitle.setTypeface(tf);
 
         SpannableString s = new SpannableString("Plannit");
         s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),

@@ -3,7 +3,6 @@ package planit.planit;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import planit.planit.vendor.TypefaceSpan;
 
 
-public class CreateEvent extends Activity {
+public class CreateUser extends Activity {
 
     private static final String TAG = "PLANNIT";
     protected String loggedInUser = "";
@@ -74,23 +72,6 @@ public class CreateEvent extends Activity {
 // Update the action bar title with the TypefaceSpan instance
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(s);
-
-        Typeface tf = Typeface.createFromAsset(getAssets(),
-                "fonts/ShadowsIntoLight.ttf");
-        TextView tv = (TextView) findViewById(R.id.ce_slogan);
-        tv.setTypeface(tf);
-
-        EditText et = (EditText) findViewById(R.id.title);
-        et.setTypeface(tf);
-
-        et = (EditText) findViewById(R.id.description);
-        et.setTypeface(tf);
-
-        et = (EditText) findViewById(R.id.location);
-        et.setTypeface(tf);
-
-        et = (EditText) findViewById(R.id.time);
-        et.setTypeface(tf);
 
 
     }
@@ -250,6 +231,6 @@ public class CreateEvent extends Activity {
                 Log.v(TAG, "fail");
             }
         }
-        }
+    }
 
 }

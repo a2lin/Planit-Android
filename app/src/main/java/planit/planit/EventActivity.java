@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
@@ -71,6 +73,11 @@ public class EventActivity extends Activity {
         Log.v(TAG, "pass1");
         GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
         getRequest.execute((Void) null);
+
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/ShadowsIntoLight.ttf");
+        TextView tv = (TextView) findViewById(R.id.eventDescription);
+        tv.setTypeface(tf);
 
 //        Log.v(TAG, "pass2");
 //        Button addEventButton = (Button) findViewById(R.id.action_compose);
