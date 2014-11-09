@@ -2,7 +2,9 @@ package planit.planit;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -66,6 +68,9 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
         View footer = layoutInflater.inflate(R.layout.friend_header_footer, null);
         TextView txtHeaderTitle = (TextView) header.findViewById(R.id.txt_title);
         txtHeaderTitle.setText("Friends List");
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/ShadowsIntoLight.ttf");
+        txtHeaderTitle.setTypeface(tf);
 
         SpannableString s = new SpannableString("Plannit");
         s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),
@@ -131,6 +136,35 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_search) {
+                return true;
+            }
+            else if (id == R.id.action_accept_friend) {
+                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
+                intent.putExtra("loggedInUser", loggedInUser);
+                intent.putExtra("ReturnFromFriend", true);
+
+                Bundle extras = getIntent().getExtras();
+                intent.putExtra("time", extras.getString("time"));
+                intent.putExtra("location", extras.getString("location"));
+                intent.putExtra("description", extras.getString("description"));
+                intent.putExtra("title", extras.getString("title"));
+                ArrayList<String> inviteEmails = new ArrayList<String>();
+
+                for(int i = 1; i < nctx.size();i++)
+                {
+                    if(nctx.get(i) % 2 == 1)
+                    {
+                        inviteEmails.add(mAdapter.getItem(i-1).email);
+                    }
+                }
+
+                intent.putStringArrayListExtra("list",inviteEmails);
+                startActivity(intent);
+            }
             return true;
         }
 
@@ -163,10 +197,10 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
         @Override
         public void onItemClick (AdapterView < ? > adapterView, View view,int position, long id){
-            Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
-            adapterView.getItemAtPosition(position);
+            //Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+            //adapterView.getItemAtPosition(position);
             if (view.getTag() != null) {
-                if (position < nctx.size()) {
+                if (position <= nctx.size()) {
                     FriendAdapter.ViewHolder vh = (FriendAdapter.ViewHolder) view.getTag();
 
                     if (nctx.get(position) % 2 == 0) {
@@ -205,7 +239,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
                     //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                     //Log.v(TAG, mEmail);
-                    String newURL = "http://192.241.239.59:8888/" + "get_friends?email=" + mEmail; //Nick made me hardcode LOL
+                    String newURL = "http://54.68.34.231:8888/" + "get_friends?email=" + mEmail; //Nick made me hardcode LOL
                     Log.v(TAG, mEmail);
                     //Log.v(TAG, newURL);
                     HttpGet httpget = new HttpGet(newURL);
@@ -235,10 +269,13 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
                 if (success) {
                     try {
+                        //pad start and end for funsies.
+                        nctx.add(0);
                         for (FriendItem data : friendData) {
                             mAdapter.add(data);
                             nctx.add(0);
                         }
+                        nctx.add(0);
 
                         mGridView.setAdapter(mAdapter);
                         mGridView.setOnScrollListener(fa);

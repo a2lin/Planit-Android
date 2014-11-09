@@ -1,5 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context="planit.planit.FriendActivity">
+    <item android:id="@+id/action_accept_friend"
+        android:icon="@drawable/ic_action_accept"
+        android:title="@string/action_accept"
+        android:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_refresh_friend"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/action_refresh_friends"
+        android:showAsAction="ifRoom"/>
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_action_search"
         android:title="@string/action_search"

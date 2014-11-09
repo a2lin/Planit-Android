@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Planit</string>
-    <string name="title_activity_friend">Planit</string>
+    <string name="app_name">Plannit</string>
+    <string name="title_activity_friend">Plannit</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_event">Plannit</string>
@@ -10,5 +10,9 @@
     <string name="action_compose">Compose</string>
     <string name="eventDescr">Events</string>
     <string name="title_activity_create_event">CreateEvent</string>
+    <string name="action_add_group">Add Group</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_refresh_event">Refresh Event</string>
+    <string name="action_refresh_friends">Refresh Friends</string>
 
 </resources>

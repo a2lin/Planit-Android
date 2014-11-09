@@ -9,7 +9,9 @@
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:textColor="@android:color/white"
         android:layout_weight="1"
+        android:textSize="20dp"
         android:gravity="center" />
 
 </LinearLayout>

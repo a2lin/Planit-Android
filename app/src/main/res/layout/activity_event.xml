@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="planit.planit.EventActivity" tools:ignore="MergeRootFrame" >
+    tools:context="planit.planit.EventActivity" tools:ignore="MergeRootFrame"
+    android:background="@drawable/school_repeating">
 
     <RelativeLayout android:id="@+id/parentLayout"
         android:layout_width="fill_parent"
@@ -12,7 +13,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/eventDescription"
             android:text="@string/eventDescr"
-            android:textSize="25dp"
+
+            android:textSize="40dp"
             android:gravity="center"/>
 
         <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView

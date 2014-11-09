@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
@@ -23,6 +25,7 @@ import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDragga
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -41,6 +44,8 @@ public class EventActivity extends Activity {
     private String loggedInUser = "";
     public String eventDict = "";
     public HttpClient client = new DefaultHttpClient();
+    protected String mEventHash;
+    protected String mCreator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +71,13 @@ public class EventActivity extends Activity {
         actionBar.setTitle(s);
 
         Log.v(TAG, "pass1");
-        GetRequest getRequest = new GetRequest(loggedInUser, this);
+        GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
         getRequest.execute((Void) null);
+
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/ShadowsIntoLight.ttf");
+        TextView tv = (TextView) findViewById(R.id.eventDescription);
+        tv.setTypeface(tf);
 
 //        Log.v(TAG, "pass2");
 //        Button addEventButton = (Button) findViewById(R.id.action_compose);
@@ -86,9 +96,19 @@ public class EventActivity extends Activity {
 //        eventData.add(new EventItem(6, "hi"));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Bundle b = getIntent().getExtras();
+        if(b != null) {
+            b.getString("loggedInUser");
+        }
+        GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
+        getRequest.execute((Void) null);
+    }
     public void addEvent(){
         Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
-        intent.putExtra("loggedInUser", loggedInUser);
+        intent.putExtra("loggedInUser", LoginActivity.loggedInUser);
         startActivity(intent);
     }
 
@@ -127,10 +147,16 @@ public class EventActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            return true;
+            PostRequest pR = new PostRequest(LoginActivity.loggedInUser, "a039s8dk3");
+            pR.execute((Void) null);
         }
         else if (id == R.id.action_compose) {
             addEvent();
+        }
+        else if(id == R.id.action_refresh_event) {
+            Log.v("WTF", "working on it!");
+            GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
+            getRequest.execute((Void) null);
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,7 +196,7 @@ public class EventActivity extends Activity {
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                 //Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888/" + "get_events?email=" + mEmail; //Nick made me hardcode LOL
+                String newURL = "http://54.68.34.231:8888/" + "get_events?email=" + mEmail; //Nick made me hardcode LOL
                 //Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -213,6 +239,49 @@ public class EventActivity extends Activity {
                 {
                     Log.v(TAG, ex.toString());
                 }
+            } else {
+                Log.v(TAG, "fail");
+            }
+        }
+    }
+
+    class PostRequest extends AsyncTask<Void, Void, Boolean> {
+
+        PostRequest(String creator, String eventHash) {
+            mEventHash = eventHash;
+            mCreator = creator;
+        }
+
+        protected Boolean doInBackground(Void... params) {
+
+            String setServerString = "";
+
+            try {
+                //Encode
+                //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
+
+                //Log.v(TAG, mEmail);
+                String newURL = "http://54.68.34.231:8888/" + "remove_event?event_hash=" + mEventHash + "&creator=" + mCreator; //Nick made me hardcode LOL
+                Log.v("WADDAFAKO", newURL);
+                HttpPost httppost = new HttpPost(newURL);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                client.execute(httppost, responseHandler);
+                Log.v("WADDAFAK", newURL);
+
+            } catch (Exception ex) {
+                Log.v(TAG, ex.toString());
+            }
+
+            return !setServerString.equals("-1");
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+            if (success) {
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("loggedInUser", loggedInUser);
+                startActivity(intent);
             } else {
                 Log.v(TAG, "fail");
             }

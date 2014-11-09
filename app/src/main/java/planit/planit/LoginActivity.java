@@ -61,6 +61,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    public static String loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         TextView tv = (TextView) findViewById(R.id.slogan);
         tv.setTypeface(tf);
         getActionBar().hide();
+
+        Typeface tf2 = Typeface.createFromAsset(getAssets(),
+                    "fonts/ArchitectsDaughter.ttf");
+        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.email);
+        actv.setTypeface(tf);
+
+        EditText et = (EditText) findViewById(R.id.password);
+        et.setTypeface(tf);
+
     }
 
     private void populateAutoComplete() {
@@ -282,7 +292,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                 //Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888/" + "login_user?email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
+                String newURL = "http://54.68.34.231:8888/" + "login_user?email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
                 //Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -320,6 +330,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 Intent intent = new Intent(getApplicationContext(), EventActivity.class);
                 intent.putExtra("loggedInUser", mEmail);
                 startActivity(intent);
+                loggedInUser = mEmail;
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

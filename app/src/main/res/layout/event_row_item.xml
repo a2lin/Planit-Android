@@ -1,23 +1,61 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="10dp" >
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventImage"/>
-    <TextView
-        android:id="@+id/eventItem"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:text="Item name here..."
-        android:textSize="15dp"
-        android:drawableLeft="@drawable/plannit"
-        android:drawablePadding="15dp"
-        android:gravity="center_vertical"
-        />
-
-
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/front_card">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/eventImage"
+            />
+            <TextView
+                android:layout_toRightOf="@id/eventImage"
+                android:id="@+id/eventItem"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="Item"
+                android:textSize="30dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+            />
+            <TextView
+                android:layout_toRightOf="@id/eventItem"
+                android:id="@+id/eventDescr"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="Item name here..."
+                android:textSize="30dp"
+                android:layout_marginLeft="20dp"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                />
+        </RelativeLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/back_card">
+        <TextView
+            android:id="@+id/eventItem2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="Item name here..."
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/plannit"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            />
+    </FrameLayout>
+</LinearLayout>

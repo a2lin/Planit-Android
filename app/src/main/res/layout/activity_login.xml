@@ -19,23 +19,27 @@
 
             <TextView android:id="@+id/slogan" android:textSize="70dp" android:layout_height="80dp" android:layout_width="match_parent" android:gravity="center" android:text="@string/slogan_value" android:textColor="@color/light_gray"/>
 
-            <AutoCompleteTextView android:id="@+id/email" android:layout_width="match_parent"
+            <AutoCompleteTextView android:id="@+id/email" android:layout_width="200dp"
                 android:layout_height="30dp" android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress" android:maxLines="1" android:background="@android:color/darker_gray"
-                android:singleLine="true" android:layout_marginTop="24dp"/>
+                android:singleLine="true" android:layout_marginTop="24dp"
+                android:layout_gravity="center" android:gravity="center"
+                android:textSize="20dp"/>
 
-            <EditText android:id="@+id/password" android:layout_width="match_parent"
+            <EditText android:id="@+id/password" android:layout_width="200dp"
                 android:layout_height="30dp" android:hint="@string/prompt_password"
                 android:layout_marginTop="16dp"
                 android:imeActionId="@+id/login" android:background="@android:color/darker_gray"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified" android:inputType="textPassword"
-                android:maxLines="1" android:singleLine="true" />
+                android:maxLines="1" android:singleLine="true"
+                android:layout_gravity="center" android:gravity="center" android:textSize="20dp"/>
 
             <Button android:id="@+id/email_sign_in_button" style="@style/login_button"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_width="200dp" android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center" android:gravity="center"/>
 
         </LinearLayout>
     </ScrollView>
