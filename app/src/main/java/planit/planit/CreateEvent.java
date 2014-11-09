@@ -85,6 +85,7 @@ public class CreateEvent extends Activity {
 
         et = (EditText) findViewById(R.id.description);
         et.setTypeface(tf);
+        
 
         et = (EditText) findViewById(R.id.location);
         et.setTypeface(tf);
