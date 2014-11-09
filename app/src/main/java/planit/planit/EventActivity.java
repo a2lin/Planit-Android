@@ -23,6 +23,7 @@ import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDragga
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -41,6 +42,8 @@ public class EventActivity extends Activity {
     private String loggedInUser = "";
     public String eventDict = "";
     public HttpClient client = new DefaultHttpClient();
+    protected String mEventHash;
+    protected String mCreator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +140,8 @@ public class EventActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            return true;
+            PostRequest pR = new PostRequest(LoginActivity.loggedInUser, "a039s8dk3");
+            pR.execute((Void) null);
         }
         else if (id == R.id.action_compose) {
             addEvent();
@@ -228,6 +232,49 @@ public class EventActivity extends Activity {
                 {
                     Log.v(TAG, ex.toString());
                 }
+            } else {
+                Log.v(TAG, "fail");
+            }
+        }
+    }
+
+    class PostRequest extends AsyncTask<Void, Void, Boolean> {
+
+        PostRequest(String creator, String eventHash) {
+            mEventHash = eventHash;
+            mCreator = creator;
+        }
+
+        protected Boolean doInBackground(Void... params) {
+
+            String setServerString = "";
+
+            try {
+                //Encode
+                //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
+
+                //Log.v(TAG, mEmail);
+                String newURL = "http://54.68.34.231:8888/" + "remove_event?event_hash=" + mEventHash + "&creator=" + mCreator; //Nick made me hardcode LOL
+                Log.v("WADDAFAKO", newURL);
+                HttpPost httppost = new HttpPost(newURL);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                client.execute(httppost, responseHandler);
+                Log.v("WADDAFAK", newURL);
+
+            } catch (Exception ex) {
+                Log.v(TAG, ex.toString());
+            }
+
+            return !setServerString.equals("-1");
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+            if (success) {
+                Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+                intent.putExtra("loggedInUser", loggedInUser);
+                startActivity(intent);
             } else {
                 Log.v(TAG, "fail");
             }
