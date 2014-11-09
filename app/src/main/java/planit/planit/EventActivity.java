@@ -55,12 +55,13 @@ public class EventActivity extends Activity {
             String loggedInUser = extras.getString("loggedInUser");
         }
         SpannableString s = new SpannableString("Plannit");
-        s.setSpan(new TypefaceSpan(this, "ShadowsIntoLight.ttf"), 0, s.length(),
+        s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 // Update the action bar title with the TypefaceSpan instance
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(s);
+
         ArrayList<EventItem> eventData = new ArrayList<EventItem>();
         eventData.add(new EventItem(3, "hi"));
         eventData.add(new EventItem(4, "hi"));
