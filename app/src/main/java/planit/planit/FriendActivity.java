@@ -2,6 +2,7 @@ package planit.planit;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -131,6 +132,18 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_search) {
+                return true;
+            }
+            else if (id == R.id.action_accept_friend) {
+                Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
+                intent.putExtra("loggedInUser", loggedInUser);
+                intent.putExtra("ReturnFromFriend", true);
+                startActivity(intent);
+            }
             return true;
         }
 
@@ -205,7 +218,7 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
                     //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                     //Log.v(TAG, mEmail);
-                    String newURL = "http://192.241.239.59:8888/" + "get_friends?email=" + mEmail; //Nick made me hardcode LOL
+                    String newURL = "http://54.68.34.231:8888/" + "get_friends?email=" + mEmail; //Nick made me hardcode LOL
                     Log.v(TAG, mEmail);
                     //Log.v(TAG, newURL);
                     HttpGet httpget = new HttpGet(newURL);

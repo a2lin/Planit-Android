@@ -1,9 +1,12 @@
 package planit.planit;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +24,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import planit.planit.event.EventItem;
+import planit.planit.vendor.TypefaceSpan;
 
 
 public class CreateEvent extends Activity {
@@ -67,6 +71,13 @@ public class CreateEvent extends Activity {
 //            actionBar.setTitle(s);
 
         });
+        SpannableString s = new SpannableString("Plannit");
+        s.setSpan(new TypefaceSpan(this, "ArchitectsDaughter.ttf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+// Update the action bar title with the TypefaceSpan instance
+        ActionBar actionBar = getActionBar();
+        actionBar.setTitle(s);
     }
 
 
@@ -114,15 +125,33 @@ public class CreateEvent extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             loggedInUser = extras.getString("loggedInUser");
         }
+
+        if (id == R.id.action_add_friends) {
+            Intent intent = new Intent(getApplicationContext(), FriendActivity.class);
+
+            // Put the logged in user for good practice
+            intent.putExtra("loggedInUser", loggedInUser);
+
+            // add a tidbit to disable the check mark view if not on adding friends path
+            intent.putExtra("expectingReturn", true);
+
+            // save information typed in to fill back into the EditText
+            intent.putExtra("time", mTimeView.getText().toString());
+            intent.putExtra("location", mLocationView.getText().toString());
+            intent.putExtra("description", mDescriptionView.getText().toString());
+            startActivity(intent);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

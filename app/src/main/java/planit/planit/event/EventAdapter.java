@@ -29,7 +29,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
 
     public EventAdapter(Context mContext, int layoutResourceId, ArrayList<EventItem> data) {
 
-       super(mContext, data);
+       super(mContext, R.layout.event_row_item, R.id.front_card, R.id.back_card, data);
 
         this.layoutResourceId = layoutResourceId;
         this.mContext = mContext;
@@ -76,7 +76,8 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         EventItem eventItem = data.get(i);
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
         textViewItem.setText(eventItem.title);
-
+        ImageView imgV = (ImageView) view.findViewById(R.id.eventImage);
+        Picasso.with(mContext).load(eventItem.image).resize(100,100).centerCrop().into(imgV);
 
         return view;
     }
@@ -89,11 +90,8 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
             view = inflater.inflate(layoutResourceId, viewGroup, false);
         }
         EventItem eventItem = data.get(i);
-        TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
+        TextView textViewItem = (TextView) view.findViewById(R.id.eventItem2);
         textViewItem.setText(eventItem.title);
-        ImageView imgV = (ImageView) view.findViewById(R.id.eventImage);
-        Picasso.with(mContext).load(eventItem.image).resize(50,50).centerCrop().into(imgV);
-
         return view;
     }
 

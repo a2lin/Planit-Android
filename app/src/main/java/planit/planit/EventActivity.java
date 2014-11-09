@@ -132,6 +132,11 @@ public class EventActivity extends Activity {
         else if (id == R.id.action_compose) {
             addEvent();
         }
+        else if(id == R.id.action_refresh_event) {
+            Log.v("WTF", "working on it!");
+            GetRequest getRequest = new GetRequest(loggedInUser, this);
+            getRequest.execute((Void) null);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -170,7 +175,7 @@ public class EventActivity extends Activity {
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                 //Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888/" + "get_events?email=" + mEmail; //Nick made me hardcode LOL
+                String newURL = "http://54.68.34.231:8888/" + "get_events?email=" + mEmail; //Nick made me hardcode LOL
                 //Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();

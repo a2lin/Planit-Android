@@ -10,5 +10,9 @@
     <string name="action_compose">Compose</string>
     <string name="eventDescr">Events</string>
     <string name="title_activity_create_event">CreateEvent</string>
+    <string name="action_add_group">Add Group</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_refresh_event">Refresh Event</string>
+    <string name="action_refresh_friends">Refresh Friends</string>
 
 </resources>

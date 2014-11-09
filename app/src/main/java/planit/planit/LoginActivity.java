@@ -282,7 +282,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
 
                 //Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888/" + "login_user?email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
+                String newURL = "http://54.68.34.231:8888/" + "login_user?email=" + mEmail + "&password=" + mPassword; //Nick made me hardcode LOL
                 //Log.v(TAG, newURL);
                 HttpGet httpget = new HttpGet(newURL);
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
