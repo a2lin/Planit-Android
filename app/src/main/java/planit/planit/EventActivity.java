@@ -66,7 +66,7 @@ public class EventActivity extends Activity {
         actionBar.setTitle(s);
 
         Log.v(TAG, "pass1");
-        GetRequest getRequest = new GetRequest(loggedInUser, this);
+        GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
         getRequest.execute((Void) null);
 
 //        Log.v(TAG, "pass2");
@@ -86,9 +86,15 @@ public class EventActivity extends Activity {
 //        eventData.add(new EventItem(6, "hi"));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
+        getRequest.execute((Void) null);
+    }
     public void addEvent(){
         Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
-        intent.putExtra("loggedInUser", loggedInUser);
+        intent.putExtra("loggedInUser", LoginActivity.loggedInUser);
         startActivity(intent);
     }
 
@@ -134,7 +140,7 @@ public class EventActivity extends Activity {
         }
         else if(id == R.id.action_refresh_event) {
             Log.v("WTF", "working on it!");
-            GetRequest getRequest = new GetRequest(loggedInUser, this);
+            GetRequest getRequest = new GetRequest(LoginActivity.loggedInUser, this);
             getRequest.execute((Void) null);
         }
 

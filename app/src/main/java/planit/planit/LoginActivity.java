@@ -61,6 +61,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    public static String loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -320,6 +321,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 Intent intent = new Intent(getApplicationContext(), EventActivity.class);
                 intent.putExtra("loggedInUser", mEmail);
                 startActivity(intent);
+                loggedInUser = mEmail;
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -142,6 +142,11 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
                 Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
                 intent.putExtra("loggedInUser", loggedInUser);
                 intent.putExtra("ReturnFromFriend", true);
+
+                Bundle extras = getIntent().getExtras();
+                intent.putExtra("time", extras.getString("time"));
+                intent.putExtra("location", extras.getString("location"));
+                intent.putExtra("description", extras.getString("description"));
                 startActivity(intent);
             }
             return true;
@@ -176,10 +181,10 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
         @Override
         public void onItemClick (AdapterView < ? > adapterView, View view,int position, long id){
-            Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
-            adapterView.getItemAtPosition(position);
+            //Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+            //adapterView.getItemAtPosition(position);
             if (view.getTag() != null) {
-                if (position < nctx.size()) {
+                if (position <= nctx.size()) {
                     FriendAdapter.ViewHolder vh = (FriendAdapter.ViewHolder) view.getTag();
 
                     if (nctx.get(position) % 2 == 0) {
@@ -248,10 +253,13 @@ public class FriendActivity extends Activity implements AbsListView.OnScrollList
 
                 if (success) {
                     try {
+                        //pad start and end for funsies.
+                        nctx.add(0);
                         for (FriendItem data : friendData) {
                             mAdapter.add(data);
                             nctx.add(0);
                         }
+                        nctx.add(0);
 
                         mGridView.setAdapter(mAdapter);
                         mGridView.setOnScrollListener(fa);
