@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -17,13 +18,11 @@ import android.view.ViewGroup;
 
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.nhaarman.listviewanimations.itemmanipulation.animateaddition.AnimateAdditionAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -40,7 +39,6 @@ import planit.planit.vendor.TypefaceSpan;
 public class EventActivity extends Activity {
     private static final String TAG = "PLANNIT";
     private String loggedInUser = "";
-    private PostRequest postShit = null;
     public String eventDict = "";
     public HttpClient client = new DefaultHttpClient();
 
@@ -66,8 +64,20 @@ public class EventActivity extends Activity {
 // Update the action bar title with the TypefaceSpan instance
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(s);
+
+        Log.v(TAG, "pass1");
         GetRequest getRequest = new GetRequest(loggedInUser, this);
         getRequest.execute((Void) null);
+
+//        Log.v(TAG, "pass2");
+//        Button addEventButton = (Button) findViewById(R.id.action_compose);
+//        addEventButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            Log.v(TAG, "pass3");
+//            addEvent();
+//            }
+//        });
 
 //        eventData.add(new EventItem(3, "hi"));
 //        eventData.add(new EventItem(4, "hi"));
@@ -76,6 +86,11 @@ public class EventActivity extends Activity {
 //        eventData.add(new EventItem(6, "hi"));
     }
 
+    public void addEvent(){
+        Intent intent = new Intent(getApplicationContext(), CreateEvent.class);
+        intent.putExtra("loggedInUser", loggedInUser);
+        startActivity(intent);
+    }
 
     private ArrayList<EventItem> jsonParser(String jsonThing) throws JSONException {
 
@@ -113,26 +128,11 @@ public class EventActivity extends Activity {
         if (id == R.id.action_search) {
             return true;
         }
-
-        if (id == R.id.action_compose) {
-            add_edit_to_listview();
+        else if (id == R.id.action_compose) {
+            addEvent();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void add_edit_to_listview() {
-
-        if (postShit != null) {
-            return;
-        }
-
-        AnimateAdditionAdapter<EventItem> ea = (AnimateAdditionAdapter<EventItem>) ((DynamicListView) findViewById(R.id.dynamiclistview)).getAdapter();
-        EventItem ei = new EventItem("ajlfasd", "yolo", "adsjkfl", "adsjkfl", "adsjfkl", loggedInUser);
-        ea.add(0, ei);
-
-        postShit = new PostRequest("", "yolo", "", "", loggedInUser);
-        postShit.execute((Void) null);
     }
 
     /**
@@ -212,55 +212,6 @@ public class EventActivity extends Activity {
                 {
                     Log.v(TAG, ex.toString());
                 }
-            } else {
-                Log.v(TAG, "fail");
-            }
-        }
-    }
-
-    class PostRequest extends AsyncTask<Void, Void, Boolean> {
-        private final String mTitle;
-        private final String mDescription;
-        private final String mLocation;
-        private final String mTime;
-        private final String mCreator;
-
-        PostRequest(String title, String description, String location, String time, String creator) {
-            mTitle = title;
-            mDescription = description;
-            mLocation = location;
-            mTime = time;
-            mCreator = creator;
-        }
-
-        protected Boolean doInBackground(Void... params) {
-
-            String setServerString = "";
-
-            try {
-                //Encode
-                //String loginValue = URLEncoder.encode(mEmailView.toString(), "UTF-8");
-
-                //Log.v(TAG, mEmail);
-                String newURL = "http://192.241.239.59:8888/" + "create_event?title=" + mTitle + "&description:" + mDescription + "&location" + mLocation + "&time" + mTime + "&creator" + mCreator; //Nick made me hardcode LOL
-                //Log.v(TAG, newURL);
-                HttpPost httppost = new HttpPost(newURL);
-                ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                setServerString = client.execute(httppost, responseHandler);
-                //Log.v(TAG, setServerString);
-
-            } catch (Exception ex) {
-                Log.v(TAG, ex.toString());
-            }
-
-            return !setServerString.equals("-1");
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-
-            if (success) {
-                //later might add event added
             } else {
                 Log.v(TAG, "fail");
             }

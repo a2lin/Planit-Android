@@ -74,6 +74,7 @@ public class EventAdapter extends ExpandableListItemAdapter<EventItem> {
         EventItem eventItem = data.get(i);
         TextView textViewItem = (TextView) view.findViewById(R.id.eventItem);
         textViewItem.setText(eventItem.title);
+        
 
         return view;
     }

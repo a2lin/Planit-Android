@@ -9,5 +9,6 @@
     <string name="action_search">Search</string>
     <string name="action_compose">Compose</string>
     <string name="eventDescr">Events</string>
+    <string name="title_activity_create_event">CreateEvent</string>
 
 </resources>
